@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue May 31 16:54:41 2022
-
-@author: Deanis
-"""
-
 #import library yang dibutuhkan
 import pandas as pd
 import matplotlib.pyplot as plt
