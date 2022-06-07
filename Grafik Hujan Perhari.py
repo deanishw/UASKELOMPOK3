@@ -36,21 +36,21 @@ else:
     df.set_index('Tanggal', inplace=True)
     
     #memakai query untuk memanggil tanggal yang diinginkan
-    df3 = df.query("Tanggal == {0}".format(T))
+    df2 = df.query("Tanggal == {0}".format(T))
     
     #membagi waktu menjadi jam, menit, detik dengan kolom terpisah
-    df3[["Jam","Menit","Detik"]]=df3["Waktu"].str.split(":",expand=True)
-    del df3["Waktu"]
+    df2[["Jam","Menit","Detik"]]=df2["Waktu"].str.split(":",expand=True)
+    del df2["Waktu"]
     
     #menggabungkan jam yang sama pada dataframe, menjadi satu
-    J1 = df3["Jam"]
+    J1 = df2["Jam"]
     J2 = J1.values.tolist()
     Jf = list(dict.fromkeys(J2))
     
     '''YUAN'''
     
     #memilah dan merata-ratakan data sesuai dengan jam yang sama
-    J3 = df3.groupby(['Jam']).mean()
+    J3 = df2.groupby(['Jam']).mean()
     D1 = pd.DataFrame(J3)
     D2 = D1.reset_index(drop=True)
     D3 = D2.values.tolist()
@@ -78,3 +78,7 @@ else:
     
     plt.legend()
     plt.show()
+    
+    if T == 27:
+        print("\n")
+        print("Data pada excel hanya sampai pukul 09:08:36")
