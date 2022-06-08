@@ -20,7 +20,7 @@ if T < 1 or T > 31:
 else:
 
     #mengubah file excel menjadi dataframe
-    filename = r"C:\Users\deann\Downloads\Data Curah Hujan Kelompok 3.csv"
+    filename = r"C:\Users\deann\Documents\Presentasi Komputasi\Data Curah Hujan Kelompok 3.csv"
     df = pd.read_csv(filename, sep=",", decimal=',', index_col=0)
  
     '''DENIS'''
@@ -34,18 +34,27 @@ else:
     del df["Bulan"]
     del df["Tahun"]
     df.set_index('Tanggal', inplace=True)
+    print(df)
     
     #memakai query untuk memanggil tanggal yang diinginkan
     df2 = df.query("Tanggal == {0}".format(T))
+    print("\n")
+    print("Dataframe dengan tanggal yang sudah diinginkan")
+    print(df2)
     
     #membagi waktu menjadi jam, menit, detik dengan kolom terpisah
     df2[["Jam","Menit","Detik"]]=df2["Waktu"].str.split(":",expand=True)
     del df2["Waktu"]
+    print("\n")
+    print("Dataframe dengan jam, menit, detik sudah terpisah")
+    print(df2)
     
     #menggabungkan jam yang sama pada dataframe, menjadi satu
     J1 = df2["Jam"]
     J2 = J1.values.tolist()
     Jf = list(dict.fromkeys(J2))
+    print("List Jam")
+    print(Jf)
     
     '''YUAN'''
     
@@ -55,13 +64,15 @@ else:
     D2 = D1.reset_index(drop=True)
     D3 = D2.values.tolist()
     Df = [x for xs in D3 for x in xs]
+    print("\n")
+    print("List Curah Hujan Perjam")
+    print(Df)
 
     #membuat tabel dataframe untuk dijadikan plot    
     tabel = pd.DataFrame({"Jam": Jf,
                           "Data Curah Hujan": Df}) 
     tabel.index = tabel["Jam"]
     del tabel["Jam"]
-
     print("\n")
     print("Tabel Curah Hujan {0} Maret 2022".format(T))
     print(tabel)
@@ -78,7 +89,5 @@ else:
     
     plt.legend()
     plt.show()
-    
-    if T == 27:
-        print("\n")
-        print("Data pada excel hanya sampai pukul 09:08:36")
+
+    #tanggal 27 Maret 2022, data curah hujan hanya sampai 09:08:36
